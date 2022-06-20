@@ -1,12 +1,19 @@
 module.exports = {
+  root: true,
+  parserOptions: {
+    sourceType: 'module',
+    ecmaVersion: 10 // 解决版本报错问题
+  },
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
   extends: [
     'plugin:vue/recommended',  // Use this if you are using Vue.js 2.x.
     // add more generic rulesets here, such as:
     'eslint:recommended'
   ],
-  "parserOptions": {
-    "ecmaVersion": 10 // 解决版本报错问题
-  },
   rules: {
     "vue/require-default-prop": "off", // 关闭 Vue 组件 prop 默认值检查
     'vue/max-attributes-per-line': [2, {
