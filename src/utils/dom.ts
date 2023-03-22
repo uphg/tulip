@@ -6,9 +6,9 @@ import { mergeClass } from './internal/mergeClass'
 import { splitClass } from './internal/splitClass'
 import type { RawElement } from '../types'
 
-const reOverflowScroll = /(auto|scroll|overlay)/
-
 type Styles = { [key: string]: string | number }
+
+const reOverflowScroll = /(auto|scroll|overlay)/
 
 export function addClass(el: Element | null, ...args: string[] | string[][]) {
   if (!el) return
@@ -33,11 +33,6 @@ export function removeClass(el: Element, ...args: string[]) {
   })
   const mergings = splitClass(prev)
   mergings && el.setAttribute('class', mergings.join(' '))
-}
-
-export function getStyle(el: Element, styleName: string): string {
-  if (!el || !styleName) return ''
-  return (el as HTMLElement).style[styleName as unknown as number]
 }
 
 export function setStyle(_el: Element, styles: Styles | string, value?: string) {
@@ -89,15 +84,4 @@ export function getScrollParent<T extends Node>(node: T): GetScrollParentNode {
   }
 
   return getScrollParent(parentNode)
-}
-
-
-export function isScroll(el: Element) {
-  const { overflow, overflowX, overflowY } = getComputedStyle(el)
-
-  if (reOverflowScroll.test(overflow + overflowX + overflowY)) {
-    return true
-  }
-
-  return false
 }

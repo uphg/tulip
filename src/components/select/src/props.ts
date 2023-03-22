@@ -1,6 +1,7 @@
 import type { PropType, ExtractPropTypes } from 'vue'
 import type { SelectOption } from './types'
 import type { SelectBaseValue } from './types'
+import { sizeProp } from '../../../common'
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>
 
@@ -22,12 +23,7 @@ export const selectProps = {
     type: String as PropType<string>,
     default: 'disabled' as const
   },
-  size: {
-    type: String as PropType<'' | 'large' | 'medium' | 'small'>,
-    validator: (value: string) => {
-      return ['', 'large', 'medium', 'small'].includes(value)
-    }
-  },
+  size: sizeProp,
   clearable: Boolean as PropType<boolean>,
   disabled: Boolean as PropType<boolean>,
   multiple: Boolean as PropType<boolean>

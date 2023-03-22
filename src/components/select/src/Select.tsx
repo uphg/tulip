@@ -4,7 +4,7 @@ import TuScrollbar from '../../scrollbar/src/Scrollbar'
 import TuPopup from '../../popup/src/Popup'
 import { TuBaseIcon } from '../../base-icon'
 import { usePopupTriggerMode } from '../../../composables/usePopupTriggerMode'
-import { isArray, remove, withAttrs } from '../../../utils'
+import { isArray, remove, withAttrs, includes } from '../../../utils'
 import { Tick } from '../../../icons'
 import type { Scrollbar, Popup } from '../../../types'
 import type { SelectBaseValue, SelectOption } from './types'
@@ -99,7 +99,7 @@ const Select = defineComponent({
     }
 
     function isSelected(value: SelectBaseValue) {
-      return props.multiple ? isArray(props.value) && props.value.includes(value) : value === props.value
+      return props.multiple ? isArray(props.value) && includes(props.value, value) : value === props.value
     }
 
     function getMultipleValues() {
@@ -121,7 +121,7 @@ const Select = defineComponent({
       const { valueField } = props
       const optionValue = option[valueField] as SelectBaseValue
       const prevValue = (rawValue.value as SelectBaseValue[] | undefined) || []
-      const newValue = prevValue?.includes(optionValue)
+      const newValue = includes(prevValue, optionValue)
         ? remove(prevValue!, (item) => item === optionValue)
         : [...prevValue, optionValue]
 

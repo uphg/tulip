@@ -40,3 +40,4 @@ export type Popup = {
 }
 
 export type Hue = 'default' | 'primary' | 'success' | 'warning' | 'info' | 'error'
+export type Size = 'large' | 'medium' | 'small'

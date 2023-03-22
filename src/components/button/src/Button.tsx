@@ -4,36 +4,27 @@ import { TuIcon } from '../../icon/index'
 import { TuBaseWave, type BaseWaveRef } from '../../base-wave'
 import TuExpandTransition from '../../expand-transition/src/ExpandTransition'
 import { useNameScope } from '../../../composables/useNameScope'
-import { hueTypes } from '../../../common'
-import type { Hue } from '../../../types'
+import { hueProp, sizeProp } from '../../../common'
+import { includes } from '../../../utils'
 
 const buttonStatekeys = ['text', 'dashed', 'ghost', 'circle', 'round', 'disabled'] as const
 
 const buttonProps = {
-  hue: {
-    type: String as PropType<Hue>,
-    default: 'default',
-    validator: (value: string) => hueTypes.includes(value)
-  },
-  size: {
-    type: String as PropType<'' | 'large' | 'medium' | 'small'>,
-    validator: (value: string) => {
-      return ['', 'large', 'medium', 'small'].includes(value)
-    }
-  },
+  hue: hueProp,
+  size: sizeProp,
   icon: Object as PropType<Component>,
   iconPosition: {
     type: String as PropType<'left' | 'right'>,
     default: 'left',
     validator: (value: string) => {
-      return ['left', 'right'].includes(value)
+      return includes(['left', 'right'], value)
     }
   },
   type: {
     type: String as PropType<'button' | 'submit' | 'reset'>,
     default: 'button',
     validator: (value: string) => {
-      return ['button', 'submit', 'reset'].includes(value)
+      return includes(['button', 'submit', 'reset'], value)
     }
   },
   loading: Boolean as PropType<boolean>,

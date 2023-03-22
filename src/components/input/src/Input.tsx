@@ -2,7 +2,7 @@ import { computed, defineComponent, nextTick, ref, shallowRef, toRef, Transition
 import type { PropType } from 'vue'
 import TuBaseIcon from '../../base-icon/src/BaseIcon'
 import { Loading, Clear, Eye, EyeDisabled } from '../../../icons'
-import { off, on } from '../../../utils'
+import { off, on, includes } from '../../../utils'
 import { useCachedValue } from '../../../composables/useCachedValue'
 
 export type InputProps = ExtractPropTypes<typeof inputProps>
@@ -19,7 +19,7 @@ const inputProps = {
   size: {
     type: String as PropType<'' | 'large' | 'medium' | 'small'>,
     validator: (value: string) => {
-      return ['', 'large', 'medium', 'small'].includes(value)
+      return includes(['', 'large', 'medium', 'small'], value)
     }
   },
   placeholder: String as PropType<string>,

@@ -1,10 +1,10 @@
-import { defineComponent, provide, ref, toRef, watch, type Ref } from 'vue'
+import { defineComponent, provide, ref, toRef, type Ref } from 'vue'
 import { treeProps, type TreeNodeProps, type TreeProps } from './props'
 import TuTreeNode from './TreeNode'
-import type { TreeNodeMetaKey, TreeNode, TreeNodeMeta } from './types'
-import { isNil, remove } from '../../../utils'
+import { isNil, remove, includes } from '../../../utils'
 import { generateTreeNodes } from './generateTreeNodes'
 import { useCachedValue } from '../../../composables/useCachedValue'
+import type { TreeNodeMetaKey, TreeNode } from './types'
 
 export type TreeRef = {
   treeNodes: Ref<TreeNode[]>
@@ -46,14 +46,12 @@ const Tree = defineComponent({
 
     function onCheckedChange(value: TreeNodeMetaKey | undefined, levels: TreeNodeProps['levels']) {
       if (isNil(value)) return
-      console.log('props.cascade')
-      console.log(props.cascade)
       if (props.cascade) {
         // 级联选择
         const currentNode = getLevelsToTreeNode(levels)!
-        checkedKeys.value?.includes(value) ? updateUncheckedState(currentNode) : updateCheckedState(currentNode)
+        includes(checkedKeys.value, value) ? updateUncheckedState(currentNode) : updateCheckedState(currentNode)
       } else {
-        checkedKeys.value = checkedKeys.value?.includes(value)
+        checkedKeys.value = includes(checkedKeys.value, value)
           ? remove(checkedKeys.value, (item) => item === value)
           : [...checkedKeys.value!, value]
       }
@@ -62,14 +60,14 @@ const Tree = defineComponent({
     function updateUncheckedState(currentNode: TreeNode) {
       let uncheckedKeys = getDeepTreeNodeKeys(currentNode)
       const parentCheckedKeys = currentNode.parent?.children?.filter(
-        (item) => checkedKeys.value?.includes(item.meta?.[props.keyField] as TreeNodeMetaKey)
+        (item) => includes(checkedKeys.value, item.meta?.[props.keyField])
       )
 
       if (parentCheckedKeys?.length! >= currentNode.parent?.children?.length!) {
         uncheckedKeys = uncheckedKeys.concat(getUpperLayerAssociatedKeys(currentNode))
       }
 
-      const nextCheckedKeys = checkedKeys.value?.filter((item) => !uncheckedKeys.includes(item))
+      const nextCheckedKeys = checkedKeys.value?.filter((item) => !includes(uncheckedKeys, item))
       checkedKeys.value = nextCheckedKeys
       updateUncheckedIndeterminateKeys(currentNode, nextCheckedKeys)
     }
@@ -77,7 +75,7 @@ const Tree = defineComponent({
     function updateCheckedState(currentNode: TreeNode) {
       const newCheckedKeys = getDeepTreeNodeKeys(currentNode)
       const upperCheckedKeys = getUpperLayerNeedToCheckedKeys(currentNode)
-      const otherCheckedKeys = newCheckedKeys.concat(upperCheckedKeys).filter((key) => !checkedKeys.value?.includes(key))
+      const otherCheckedKeys = newCheckedKeys.concat(upperCheckedKeys).filter((key) => !includes(checkedKeys.value, key))
       const nextCheckedKeys = checkedKeys.value?.concat(otherCheckedKeys)
       checkedKeys.value = nextCheckedKeys
       updateCheckedIndeterminateKeys(currentNode, nextCheckedKeys)
@@ -93,11 +91,11 @@ const Tree = defineComponent({
         const indeterminates = getCheckedNodes(parent?.children, nextIndeterminatekeys)
 
         if (!checkeds?.length && !indeterminates?.length) {
-          if (nextIndeterminatekeys.includes(parentKey)) {
+          if (includes(nextIndeterminatekeys, parentKey)) {
             nextIndeterminatekeys = nextIndeterminatekeys.filter((item) => item !== parentKey)
           }
         } else {
-          if (!nextIndeterminatekeys.includes(parentKey)) {
+          if (!includes(nextIndeterminatekeys, parentKey)) {
             nextIndeterminatekeys.push(parentKey)
           }
         }
@@ -110,9 +108,9 @@ const Tree = defineComponent({
     function updateCheckedIndeterminateKeys(currentNode: TreeNode, nextCheckedKeys: TreeNodeMetaKey[]) {
       let prevKeys = [...indeterminateKeys.value]
       const currentKey = currentNode?.meta?.[props.keyField] as TreeNodeMetaKey
-      if (prevKeys.includes(currentKey)) {
+      if (includes(prevKeys, currentKey)) {
         const checkedKeys = getDeepTreeNodeKeys(currentNode)
-        prevKeys = prevKeys.filter((item) => !checkedKeys.includes(item))
+        prevKeys = prevKeys.filter((item) => !includes(checkedKeys, item))
       }
 
       indeterminateKeys.value = getCheckedIndeterminateKeys(currentNode, nextCheckedKeys, prevKeys)
@@ -129,7 +127,7 @@ const Tree = defineComponent({
         const checkedsLength = checkedNodes.length
 
         if (checkedsLength > 0 && checkedsLength < childrenLength || indeterminateNodes?.length) {
-          if (!indeterminateKeys.includes(parentKey)) {
+          if (!includes(indeterminateKeys, parentKey)) {
             indeterminateKeys.push(parentKey)
           }
           parent = parent.parent
@@ -145,7 +143,7 @@ const Tree = defineComponent({
     }
 
     function getCheckedNodes(treeNodes: TreeNode[] | undefined, checkedKeys: TreeNodeMetaKey[]) {
-      return treeNodes?.filter(item => checkedKeys.includes(item?.meta?.[props.keyField] as TreeNodeMetaKey))!
+      return treeNodes?.filter(item => includes(checkedKeys, item?.meta?.[props.keyField]))!
     }
 
     function getIndeterminateKeys(treeNodes: TreeNode[]) {
@@ -166,7 +164,7 @@ const Tree = defineComponent({
             let parent: TreeNode | null | undefined = currentNode.parent
             while (parent) {
               const parentKey = parent?.meta?.[props.keyField] as TreeNodeMetaKey
-              if (result.includes(parentKey)) {
+              if (includes(result, parentKey)) {
                 parent = null
               } else {
                 result.push(parentKey)
@@ -188,7 +186,7 @@ const Tree = defineComponent({
     function onExpandedChange(value?: TreeNodeMetaKey) {
       if (isNil(value)) return
 
-      expandedKeys.value = expandedKeys.value?.includes(value)
+      expandedKeys.value = includes(expandedKeys.value, value)
         ? remove(expandedKeys.value, (item) => item === value)
         : [...expandedKeys.value, value]
     }
@@ -236,7 +234,7 @@ const Tree = defineComponent({
       const result = []
       let parent: TreeNode | undefined = treeNode.parent
       while (parent) {
-        const siblingCheckedKeys = parent?.children?.filter(item => checkedKeys.value?.includes(item.meta?.[props.keyField] as TreeNodeMetaKey))
+        const siblingCheckedKeys = parent?.children?.filter(item => includes(checkedKeys.value, item.meta?.[props.keyField]))
         if (siblingCheckedKeys?.length! >= (parent?.children?.length! - 1)) {
           result.push(parent.meta?.[props.keyField] as TreeNodeMetaKey)
           parent = parent.parent

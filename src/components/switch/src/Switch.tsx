@@ -1,6 +1,7 @@
 import { defineComponent, ref, computed, type PropType } from 'vue'
 import { TuBaseWave, type BaseWaveRef } from '../../base-wave'
 import { isNil } from '../../../utils'
+import { sizeProp } from '../../../common'
 
 type SwitchValue = string | number | boolean
 
@@ -8,12 +9,6 @@ const switchProps = {
   value: {
     type: [String, Number, Boolean] as PropType<string | number | boolean>,
     default: false
-  },
-  size: {
-    type: String as PropType<'' | 'large' | 'medium' | 'small'>,
-    validator: (value: string) => {
-      return ['', 'large', 'medium', 'small'].includes(value)
-    }
   },
   checkedValue: {
     type: [String, Number, Boolean],
@@ -23,6 +18,7 @@ const switchProps = {
     type: [String, Number, Boolean],
     default: false
   },
+  size: sizeProp,
   square: Boolean
 }
 

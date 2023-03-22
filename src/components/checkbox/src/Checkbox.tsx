@@ -3,7 +3,7 @@ import { checkboxGroupInjectionKey, type CheckboxGroupRef } from './CheckboxGrou
 import { checkboxProps } from './props'
 import { useNameScope } from '../../../composables/useNameScope'
 import { Checked as CheckedIcon, Line as LineIcon } from '../../../icons'
-import { isNil } from '../../../utils'
+import { isNil, includes } from '../../../utils'
 
 const Checkbox = defineComponent({
   name: 'TuCheckbox',
@@ -14,7 +14,7 @@ const Checkbox = defineComponent({
     const checkbox = shallowRef<HTMLInputElement | null>(null)
     const isFocus = ref(false)
     const checkboxGroup = inject<CheckboxGroupRef | null>(checkboxGroupInjectionKey, null)
-    const checked = computed(() => isNil(checkboxGroup) ? props.checked : checkboxGroup.value.value?.includes(props.value!))
+    const checked = computed(() => isNil(checkboxGroup) ? props.checked : includes(checkboxGroup.value.value, props.value!))
     const size = computed(() => props.size ? props.size : checkboxGroup?.size.value)
 
     function handleClick(e: Event) {

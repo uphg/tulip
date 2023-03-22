@@ -1,13 +1,13 @@
 import { computed, defineComponent, inject, ref, shallowRef, watch, type Ref } from 'vue'
+import CollapseTransition from '../../collapse-transition/src/CollapseTransition'
+import TuTreeNodeCheckbox from './TreeNodeCheckbox'
 import { treeNodeProps } from './props'
 import { useNameScope } from '../../../composables/useNameScope'
-import CollapseTransition from '../../collapse-transition/src/CollapseTransition'
 import { TuBaseIcon } from '../../base-icon'
 import { ArrowDropRight } from '../../../icons'
-import TuTreeNodeCheckbox from './TreeNodeCheckbox'
-import type { TreeNodeMetaKey, TreeNodeMeta } from './types'
+import { isNil, includes } from '../../../utils'
+import type { TreeNodeMetaKey } from './types'
 import type { TreeRef } from './Tree'
-import { isNil } from '../../../utils'
 
 const TreeNode = defineComponent({
   name: 'TuTreeItem',
@@ -23,9 +23,9 @@ const TreeNode = defineComponent({
         disabled: meta?.[props.disabledField] as boolean
       }
     })
-    const checked = computed(() => tree?.checkedKeys.value?.includes(treeNode.value.key))
-    const indeterminate = computed(() => tree?.indeterminateKeys.value?.includes(treeNode.value.key))
-    const expanded = computed(() => !isNil(treeNode.value.key) && tree?.expandedKeys.value?.length ? tree?.expandedKeys.value?.includes(treeNode.value.key) : false)
+    const checked = computed(() => includes(tree?.checkedKeys.value, treeNode.value.key))
+    const indeterminate = computed(() => includes(tree?.indeterminateKeys.value, treeNode.value.key))
+    const expanded = computed(() => !isNil(treeNode.value.key) && tree?.expandedKeys.value?.length ? includes(tree?.expandedKeys.value, treeNode.value.key) : false)
 
     function handleTreeNodeClick(e: Event) {
       if (treeNode.value.disabled) return

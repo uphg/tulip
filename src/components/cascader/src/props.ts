@@ -1,4 +1,5 @@
 import type { ExtractPropTypes, PropType } from 'vue'
+import { sizeProp } from '../../../common'
 
 export type CascaderProps = ExtractPropTypes<typeof cascaderProps>
 
@@ -30,12 +31,7 @@ export const cascaderProps = {
     type: String as PropType<string>,
     default: 'disabled' as const
   },
-  size: {
-    type: String as PropType<'' | 'large' | 'medium' | 'small'>,
-    validator: (value: string) => {
-      return ['', 'large', 'medium', 'small'].includes(value)
-    }
-  },
+  size: sizeProp,
   placeholder: String as PropType<string>,
   clearable: Boolean as PropType<boolean>,
   disabled: Boolean as PropType<boolean>

@@ -1,28 +1,19 @@
 import { defineComponent, type PropType } from 'vue'
 import { useNameScope } from '../../../composables/useNameScope'
-import { hueTypes } from '../../../common'
-import type { Hue } from '../../../types'
+import { hueProp } from '../../../common'
 import { TuBaseClose } from '../../base-close'
+import { sizeProp } from '../../../common'
 
 const Tag = defineComponent({
   name: 'TuTag',
   props: {
-    hue: {
-      type: String as PropType<Hue>,
-      default: 'default',
-      validator: (value: string) => hueTypes.includes(value)
-    },
+    hue: hueProp,
     onClose: Function as PropType<(e: MouseEvent) => void>,
     bordered: {
       type: Boolean as PropType<boolean>,
       default: true
     },
-    size: {
-      type: String as PropType<'' | 'large' | 'medium' | 'small'>,
-      validator: (value: string) => {
-        return ['', 'large', 'medium', 'small'].includes(value)
-      }
-    },
+    size: sizeProp,
     disabled: Boolean as PropType<boolean>,
     closable: Boolean as PropType<boolean>
   },

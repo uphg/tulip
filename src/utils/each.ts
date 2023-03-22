@@ -1,7 +1,7 @@
 import { isArray } from './isArray'
 
 export function each<T>(
-  obj: T[] | { [key: string]: T },
+  obj: T[] | { [key: string | number]: T },
   callback: (item: T, inedx: number | string, obj: T[] | { [key: string]: T }) => void
 ) {
   if (isArray(obj)) {

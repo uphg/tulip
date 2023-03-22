@@ -2,7 +2,7 @@ import { computed, defineComponent, inject, type PropType } from 'vue'
 import { collapseInjectionKey } from './Collapse'
 import { TuIcon } from '../../icon'
 import { TuCollapseTransition } from '../../collapse-transition'
-import { isNil } from '../../../utils'
+import { isNil, includes } from '../../../utils'
 import { ArrowRightRoundSmall } from '../../../icons'
 import { useNameScope } from '../../../composables/useNameScope'
 import type { CollapseItemName, CollapseContent } from './types'
@@ -23,7 +23,7 @@ const CollapseItem = defineComponent({
 
       return collapse?.props.accordion
         ? props.name === collapse.activeNames.value
-        : (collapse?.activeNames.value as CollapseItemName[]).includes(props.name)
+        : includes(collapse?.activeNames.value as CollapseItemName[], props.name)
     })
 
     return () => (
