@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, shallowRef, watchEffect, nextTick, type PropType, type SetupContext, type VNode } from 'vue'
-import { addClass, filterComponent, setStyle } from '../../../utils'
+import { addClass, getComponent, setStyle } from '../../../utils'
 
 export type TabsValue = string | number
 
@@ -45,7 +45,7 @@ const Tabs = defineComponent({
     })
 
     return () => {
-      const tabPanes = filterComponent(slots.default?.(), 'TabPane')
+      const tabPanes = getComponent(slots.default?.(), 'TabPane')
       return (
         <div class="tu-tabs">
           <div class={['tu-tabs-nav', { 'tu-tabs-nav--segment': props.type === 'segment' }]}>

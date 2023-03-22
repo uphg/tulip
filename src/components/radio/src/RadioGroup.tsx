@@ -1,6 +1,6 @@
 import { computed, defineComponent, provide, ref, toRef, type SetupContext } from 'vue'
 import type { UnwrapRef, VNode } from 'vue'
-import { filterComponent, flattenSlots, getSlot } from '../../../utils'
+import { getComponent, flattenSlots, getSlot } from '../../../utils'
 import { radioGroupProps, type RadioGroupProps } from './props'
 import type { RadioButtonInstance } from './types'
 
@@ -47,7 +47,7 @@ function renderRadioButtons(defaultSlot: VNode[], { value, filling, buttons }: {
   buttons: UnwrapRef<RadioButtonInstance>[]
 }) {
   const children: VNode[] = []
-  const slot = filterComponent(defaultSlot, 'RadioButton')
+  const slot = getComponent(defaultSlot, 'RadioButton')
   if (slot.length < 1) {
     return { children, isButton: false }
   }

@@ -2,7 +2,7 @@ import { TAGKEY } from '../shared'
 import { isObject } from './isObject'
 import type { VNodeTypes } from 'vue'
 
-export function filterComponent<T extends { type: VNodeTypes }>(array: T[] | undefined, tag: string): T[] {
+export function getComponent<T extends { type: VNodeTypes }>(array: T[] | undefined, tag: string): T[] {
   const length = array?.length
   if (!length) return []
   const result: T[] = [] 
