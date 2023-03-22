@@ -8,20 +8,34 @@ const demoPath = `${path.resolve('./docs/examples')}`
 const demoRegex = /^demo\s*(.*)$/
 const demoTag = 'EDemo'
 
-function getComponentName(sourceFile) {
+type Token = {
+  type: string
+  nesting: number
+  children: { content: string }[]
+}
+
+type PluginSimple = {
+
+}
+
+type MarkdownIt = {
+  use: (plugin: PluginSimple, tag: string, options: {}) => void
+}
+
+function getComponentName(sourceFile: string) {
   const names = sourceFile.split(/[\/-]/)
   return names.map((item) => item.replace(/^(\w)/, (_, c) => (c ? c.toUpperCase() : ''))).join('')
 }
 
-async function mdPlugin(md) {
+async function mdPlugin(md: MarkdownIt) {
   const highlighter = await getHighlighter({ theme: 'material-palenight' })
 
   md.use(mdContainer, 'demo', {
-    validate(params) {
+    validate(params: string) {
       return !!params.trim().match(demoRegex)
     },
 
-    render(tokens, idx) {
+    render(tokens: Token[], idx: number) {
       // const m = tokens[idx].info.trim().match(demoRegex)
       if (tokens[idx].nesting === 1 /* means the tag is opening */) {
         const sourceFileToken = tokens[idx + 2]
