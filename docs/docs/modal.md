@@ -31,7 +31,7 @@ modal/dialog
 | on-after-leave   | 关闭动画结束后执行                       | `() => void`    | `undefined` |
 | disabled         | 是否禁用弹框开关                         | `boolean`       | `false`     |
 | mask-closable    | 点击遮罩时是否发出 `update:visible` 事件 | `boolean`       | `true`      |
-| render-directive | Modal 渲染指令                           | `'if' | 'show'` | `'if'`      |
+| render-directive | Modal 渲染指令                           | `'if' \| 'show'` | `'if'`      |
 | disable-scroll   | Modal 打开时是否禁用 body 滚动           | `boolean`       | `true`      |
 
 
