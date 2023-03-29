@@ -18,12 +18,12 @@ const BaseWave = defineComponent({
 
     function stop() {
       isActive.value = false
-      typeof timerId === 'number' && window?.clearTimeout(timerId)
       timerId = null
     }
 
     function triggerWave() {
       if (isActive.value) {
+        timerId && clearTimeout(timerId)
         stop()
       }
       nextTick(() => {

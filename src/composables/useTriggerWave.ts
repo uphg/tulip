@@ -4,25 +4,23 @@ import type { Ref } from 'vue'
 export function useTriggerWave() {
   const isWave: Ref<boolean> = ref(false)
   const selfRef = shallowRef<HTMLElement | null>(null)
-  let animationTimerId: number | null = null
+  let timerId: number | null = null
 
   const stop = () => {
     isWave.value = false
-    typeof animationTimerId === 'number' && window?.clearTimeout(animationTimerId)
-    animationTimerId = null
+    timerId = null
   }
 
   const triggerWave = () => {
     if (isWave.value) {
+      timerId && window?.clearTimeout(timerId)
       stop()
     }
     nextTick(() => {
       // 刷新 DOM
       void selfRef.value?.offsetHeight
       isWave.value = true
-      animationTimerId = window?.setTimeout(() => {
-        stop()
-      }, 1000)
+      timerId = window?.setTimeout(stop, 1000)
     })
   }
 
