@@ -13,7 +13,7 @@ type UseDraggableOptions = {
 
 export function useDraggable(target: MaybeElementRef, options?: UseDraggableOptions) {
   const position = ref(options?.initialValue ?? { x: 0, y: 0 })
-  const pressedDelta = ref<Position>()
+  const pressedDelta = ref<Position | null>(null)
   const draggingElement = (options?.draggingElement ?? defaultWindow) as Element
   const cleanups: Fn[] = []
 
@@ -34,7 +34,7 @@ export function useDraggable(target: MaybeElementRef, options?: UseDraggableOpti
   }
 
   function end() {
-    pressedDelta.value = void 0
+    pressedDelta.value = null
   }
 
   function stop() {

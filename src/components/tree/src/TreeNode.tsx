@@ -88,7 +88,6 @@ const TreeNode = defineComponent({
                   {props.item.children.map((current, index) => (
                     <TreeNode
                       item={current}
-                      parent={props.item}
                       key={current.meta?.[props.keyField] as TreeNodeMetaKey}
                       levels={[...props.levels!, index]}
                     />
