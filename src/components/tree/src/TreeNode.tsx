@@ -24,7 +24,7 @@ const TreeNode = defineComponent({
       }
     })
     const checked = computed(() => includes(tree?.checkedKeys.value, treeNode.value.key))
-    const indeterminate = computed(() => includes(tree?.indeterminateKeys.value, treeNode.value.key))
+    const indeterminate = computed(() => tree?.cascade.value && includes(tree?.indeterminateKeys.value, treeNode.value.key))
     const expanded = computed(() => !isNil(treeNode.value.key) && tree?.expandedKeys.value?.length ? includes(tree?.expandedKeys.value, treeNode.value.key) : false)
 
     function handleTreeNodeClick(e: Event) {
