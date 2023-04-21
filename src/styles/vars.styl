@@ -3,8 +3,9 @@
 :root
   // 主题色
   --tu-primary-color $primary-color
-  --tu-primary-color-hover #5d9cef
-  --tu-primary-color-pressed #135bb9
+  --tu-primary-color-hover $primary-color-hover
+  --tu-primary-color-pressed $primary-color-pressed
+  --tu-primary-color-lighter rgba($primary-color, 0.5)
 
   // 成功
   --tu-success-color $success-color
@@ -35,7 +36,7 @@
   --tu-bg-color-disabled rgb(250, 250, 252)
 
   --tu-wave-box-shadow 0 0 0 2.2px rgba(0, 0, 0, 0.05)
-  --tu-wave-active-box-shadow 0 0 0 2.2px rgba(68, 99, 209, 0.2)
+  --tu-wave-active-box-shadow 0 0 0 2.2px rgba($primary-color, 0.2)
 
   --tu-font-size 14px
   --tu-font-size-small 12px
@@ -47,8 +48,9 @@
   --tu-border-color rgb(224, 224, 230)
   --tu-border-color-light rgb(239, 239, 245)
   --tu-border-color-dark #9ca3af
-
   --tu-border-radius 3px
+
+  --tu-box-shadow-focus $primary-box-shadow-focus
 
   // 过渡效果
   --tu-bezier cubic-bezier(.645, .045, .355, 1)
