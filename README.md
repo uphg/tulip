@@ -2,6 +2,10 @@
 
 一个 Vue3 UI 组件库。
 
+## 文档
+
+[uphgs.com/tulip/](https://uphgs.com/tulip/)
+
 ## 安装
 
 使用 npm 安装
