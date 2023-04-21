@@ -1,7 +1,7 @@
 <h1 align="center"><a href="https://uphgs.com/tulip/" target="_blank">Tulip</a></h1>
 
 <div align="center">
-  <img src="https://img.shields.io/badge/tulip-ui-v1.0.0-alpha.2-orange">
+  <img src="https://img.shields.io/badge/vue-%3E%3D%203.2.0-brightgreen">
   <img src="https://img.shields.io/badge/license-MIT-green">
 </div>
 
