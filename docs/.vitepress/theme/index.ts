@@ -1,6 +1,6 @@
-import '../../../src/styles/index.styl'
-import './style.styl'
 import DefaultTheme from 'vitepress/theme'
+import './style.styl'
+import '../../../src/styles/index.styl'
 import Tulp from '../../../src/index'
 import Demo from '../components/EDemo.vue'
 
