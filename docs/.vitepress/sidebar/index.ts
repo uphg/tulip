@@ -25,7 +25,7 @@ export const sidebar = {
         { text: 'Switch 开关', link: '/docs/switch' },
         { text: 'Radio 单选', link: '/docs/radio' },
         { text: 'Checkbox 多选框', link: '/docs/checkbox' },
-        { text: 'Select 级联选择', link: '/docs/select' },
+        { text: 'Select 选择器', link: '/docs/select' },
         { text: 'Cascader 级联选择', link: '/docs/cascader' },
       ]
     },

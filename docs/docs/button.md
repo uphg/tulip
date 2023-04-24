@@ -2,6 +2,7 @@
 
 平平无奇的按钮。
 
+
 ## 基本用法
 
 使用 hue 改变它的默认主题色
@@ -122,6 +123,7 @@ button/group
 | 名称     | 说明               | 类型      | 默认值  |
 | -------- | ------------------ | --------- | ------- |
 | vertical | 是否竖直排列按钮组 | `boolean` | `false` |
+
 
 <script setup lang="ts">
 import ButtonBase from '../examples/button/base.vue'

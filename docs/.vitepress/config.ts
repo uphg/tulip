@@ -6,7 +6,6 @@ export default defineConfig({
   base: '/tulip/',
   title: 'Tulip',
   description: 'Vue3 UI 组件库',
-
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
   ],
