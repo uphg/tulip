@@ -1,14 +1,14 @@
 <template>
-  <div class="e-demo">
+  <div class="tu-demo">
     <div class="component">
       <component :is="componentIs" />
     </div>
     <TuCollapseTransition>
-      <div class="e-code-wrap tu-dark" v-show="visible">
-        <tu-scrollbar class="e-code-scrollbar">
-          <div class="e-code-source language-vue" v-html="decodeURIComponent(html)"></div>
+      <div class="tu-code-wrap tu-dark" v-show="visible">
+        <tu-scrollbar class="tu-code-scrollbar">
+          <div class="tu-code-source language-vue" v-html="decodeURIComponent(html)"></div>
         </tu-scrollbar>
-        <button ref="copyEl" :class="['e-button-copy', { copied }]" @click="copy"></button>
+        <button ref="copyEl" :class="['tu-button-copy', { copied }]" @click="copy"></button>
         <span v-if="lang" class="lang">{{ lang }}</span>
       </div>
     </TuCollapseTransition>
@@ -38,8 +38,8 @@ const props = defineProps({
 const visible = ref(false)
 const copyEl = ref<HTMLButtonElement | null>(null)
 const copied = ref(false)
-const timeoutId = ref(null)
-const componentIs = { ...props.part, name: props.componentName }
+const timeoutId = ref<number | NodeJS.Timeout | null>(null)
+const componentIs = { ...props.part, name: props.componentName } as {}
 
 function copy() {
   const code = decodeURIComponent(props.source)
@@ -48,14 +48,14 @@ function copy() {
     timeoutId.value && clearTimeout(timeoutId.value)
     timeoutId.value = setTimeout(() => {
       copied.value = false
-      copyEl.value.blur()
+      copyEl.value?.blur()
     }, 2000)
   })
 }
 </script>
 
 <style lang="stylus" scoped>
-.e-demo {
+.tu-demo {
   width: 100%;
   border-radius: 6px;
   margin-top: 1.2em;
@@ -67,20 +67,20 @@ function copy() {
 .component {
   padding: 22px 24px;
 }
-.e-demo .e-code-source {
-  border-top: 1px solid var(--vp-c-divider-light);
+.tu-demo .tu-code-source {
+  border-top: 1px solid var(--vp-c-divider);
   color: #fff;
   overflow-x: auto;
   margin: 0;
   border-radius: 0;
 }
 
-:deep(.e-code-source pre) {
+:deep(.tu-code-source pre) {
   margin: 0;
   border-radius: 0;
 }
 .control {
-  border-top: 1px solid var(--vp-c-divider-light);
+  border-top: 1px solid var(--vp-c-divider);
   font-size: 14px;
   cursor: pointer;
   height: 42px;
@@ -89,23 +89,23 @@ function copy() {
   user-select:none;
 }
 
-.e-code-wrap {
+.tu-code-wrap {
   position: relative;
-  &:hover .e-button-copy {
+  &:hover .tu-button-copy {
     opacity: 1;
   }
 
-  &:hover > .e-button-copy + .lang,
-  & > .e-button-copy:focus + .lang {
+  &:hover > .tu-button-copy + .lang,
+  & > .tu-button-copy:focus + .lang {
     opacity: 0;
   }
 }
 
-.e-code-scrollbar {
+.tu-code-scrollbar {
   max-height: 800px;
 }
 
-.e-button-copy {
+.tu-button-copy {
   direction: ltr;
   position: absolute;
   top: 8px;
@@ -137,8 +137,8 @@ function copy() {
     opacity: 1;
   }
 }
-.e-button-copy.copied::before,
-.e-button-copy:hover.copied::before {
+.tu-button-copy.copied::before,
+.tu-button-copy:hover.copied::before {
   position: relative;
   /*rtl:ignore*/
   left: -65px;
@@ -170,7 +170,7 @@ function copy() {
 </style>
 
 <style>
-.e-code-wrap .tu-scrollbar-track {
+.tu-code-wrap .tu-scrollbar-track {
   z-index: 1;
 }
 </style>
