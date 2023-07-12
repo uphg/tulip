@@ -5,9 +5,12 @@
     </div>
     <TuCollapseTransition>
       <div class="tu-code-wrap tu-dark" v-show="visible">
-        <tu-scrollbar class="tu-code-scrollbar">
+        <!-- <tu-scrollbar class="tu-code-scrollbar">
+          
+        </tu-scrollbar> -->
+        <div class="tu-code-source__wrap">
           <div class="tu-code-source language-vue" v-html="decodeURIComponent(html)"></div>
-        </tu-scrollbar>
+        </div>
         <button ref="copyEl" :class="['tu-button-copy', { copied }]" @click="copy"></button>
         <span v-if="lang" class="lang">{{ lang }}</span>
       </div>
@@ -166,6 +169,10 @@ function copy() {
   font-weight: 500;
   color: var(--vp-c-text-dark-3);
   transition: color .4s,opacity .4s;
+}
+
+.tu-code-source__wrap {
+  overflow: auto;
 }
 </style>
 
