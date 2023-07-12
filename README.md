@@ -1,15 +1,18 @@
-<h1 align="center"><a href="https://uphgs.com/tulip/" target="_blank">Tulip</a></h1>
 
-<div align="center">
-  <img src="https://img.shields.io/badge/vue-%3E%3D%203.2.0-brightgreen">
-  <img src="https://img.shields.io/badge/license-MIT-green">
-</div>
+# Tulip (alpha)
 
-<p align="center">一个 Vue3 UI 组件库。</p>
+[![Vue](https://img.shields.io/badge/vue-%3E%3D%203.2.0-brightgreen)](https://vuejs.org/)
+[![MIT](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+
+---
+
+一个开箱即用的 Vue3 UI 组件库。
+
+该项目目前处于 alpha 阶段，不建议用于生产版本，组件内容及 API 仍可能会在下个版本中变更。
 
 ## 文档
 
-[uphgs.com/tulip/](https://uphgs.com/tulip/)
+当前组件库文档：[uphgs.com/tulip/](https://uphgs.com/tulip/)
 
 ## 安装
 
