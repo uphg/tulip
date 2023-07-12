@@ -13,16 +13,23 @@ async function config() {
       ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
     ],
     appearance: false,
+    lastUpdated: true,
     themeConfig: {
       logo: '/logo.svg',
-      socialLinks: [
-        { icon: 'github', link: 'https://github.com/uphg/tulip' }
-      ],
       nav: [
         { text: '首页', link: '/' },
         { text: '文档', link: '/docs/introduction', activeMatch: '/docs/' }
       ],
-      sidebar
+      sidebar,
+      socialLinks: [
+        { icon: 'github', link: 'https://github.com/uphg/tulip' }
+      ],
+      search: {
+        provider: 'local'
+      },
+      editLink: {
+        pattern: 'https://github.com/uphg/tulip/edit/master/docs/:path',
+      }
     },
     markdown: {
       config: (md) => {
