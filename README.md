@@ -12,7 +12,7 @@
 
 ## 文档
 
-当前组件库文档：[uphgs.com/tulip/](https://uphgs.com/tulip/)
+当前组件库文档：https://uphg.github.io/tulip/
 
 ## 安装
 
